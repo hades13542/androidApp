@@ -69,9 +69,10 @@ class QrCodeActivity : BasicActivity() {
                     textView.post {
                         val vibrator =
                             applicationContext.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        vibrator.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
                         textView.setText(qrCodes.valueAt(0).displayValue)
-                        DataContainer.qrCodes.add(qrCodes.valueAt(0).displayValue)
+                        Log.d("PREFS" + this::class , qrCodes.valueAt(0).displayValue)
+                        getSharedPreferences("thisApp", Context.MODE_PRIVATE).edit().putBoolean(qrCodes.valueAt(0).displayValue, true).apply()
                         finish()
                     }
                 }
