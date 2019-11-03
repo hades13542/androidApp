@@ -9,9 +9,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.GridView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.res.use
+import androidx.core.view.children
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -71,12 +75,21 @@ class MainActivity : BasicActivity() {
     }
 
     fun handleItem(view: View) {
-
-        Log.d("MENU ITEM", view.id.toString())
         val id = findViewById<CardView>(view.id)
-        Log.d("MENU ITEM", id.textView.text.toString())
-        TODO("finished here")
-        id.visibility = View.GONE
+        val buttonName =
+            ((id.children.first { it is LinearLayout } as ViewGroup).children.first { it is TextView } as TextView).text.toString()
+        Log.d("MENU ITEM", buttonName)
+        val stringId = resources.getIdentifier(buttonName, "string", packageName)
+        val imageId = resources.getIdentifier(buttonName, "drawable", packageName)
+
+        val intent = Intent(this, ShowcaseElementActivity::class.java).apply {
+            putExtra("IMAGE_ID", imageId)
+            putExtra("STRING_ID", stringId)
+        }
+        startActivity(intent)
+//        TODO("finished here")
+//        id.visibility = View.GONE
+
     }
 
     fun openQRAcivity(view: View) {
