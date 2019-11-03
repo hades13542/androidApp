@@ -79,12 +79,9 @@ class MainActivity : BasicActivity() {
         val buttonName =
             ((id.children.first { it is LinearLayout } as ViewGroup).children.first { it is TextView } as TextView).text.toString()
         Log.d("MENU ITEM", buttonName)
-        val stringId = resources.getIdentifier(buttonName, "string", packageName)
-        val imageId = resources.getIdentifier(buttonName, "drawable", packageName)
 
         val intent = Intent(this, ShowcaseElementActivity::class.java).apply {
-            putExtra("IMAGE_ID", imageId)
-            putExtra("STRING_ID", stringId)
+            putExtra("BUTTON_NAME", buttonName)
         }
         startActivity(intent)
 //        TODO("finished here")
